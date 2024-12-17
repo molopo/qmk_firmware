@@ -61,7 +61,7 @@
 #define SPLIT_POINTING_ENABLE
 
 // Pointing device is on the right split.
-#define POINTING_DEVICE_COMBINED
+#define POINTING_DEVICE_RIGHT
 
 // Limits the frequency that the sensor is polled for motion.
 #define POINTING_DEVICE_TASK_THROTTLE_MS 1
