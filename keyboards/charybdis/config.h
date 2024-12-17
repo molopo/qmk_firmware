@@ -41,7 +41,7 @@
 #define MATRIX_COL_PINS { F4, F5, F6, F7, B1 }
 #define MATRIX_COL_PINS_RIGHT { B4, B5, F6, F4, F5 }
 
-#define MATRIX_ROW_PINS_RIGHT { D4, C6, D7, E6 }
+//#define MATRIX_ROW_PINS_RIGHT { D4, C6, D7, E6 }
 #define MATRIX_ROW_PINS { D4, C6, D7, E6 }
 
 // /* COL2ROW, ROW2COL*/
@@ -61,7 +61,7 @@
 #define SPLIT_POINTING_ENABLE
 
 // Pointing device is on the right split.
-#define POINTING_DEVICE_RIGHT
+#define POINTING_DEVICE_COMBINED
 
 // Limits the frequency that the sensor is polled for motion.
 #define POINTING_DEVICE_TASK_THROTTLE_MS 1

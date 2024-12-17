@@ -1,9 +1,6 @@
 {
 "usb": {
         "device_version": "2.0.0"
-   /* },
-    "ws2812": {
-        "pin": "F7"*/
     },
     "diode_direction": "ROW2COL",
     "layouts": {
