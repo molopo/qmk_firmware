@@ -92,12 +92,12 @@ combo_t key_combos[] = {
     COMBO(spotlight_combo, LCMD(KC_SPACE)),
 };
 
-const key_override_t shift_space_override = ko_make_basic(MOD_MASK_SHIFT, KC_SPACE, KC_UNDS);
+// const key_override_t shift_space_override = ko_make_basic(MOD_MASK_SHIFT, KC_SPACE, KC_UNDS);
 
-// This globally defines all key overrides to be used
-const key_override_t **key_overrides = {
-	&shift_space_override
-};
+// // This globally defines all key overrides to be used
+// const key_override_t **key_overrides = {
+// 	&shift_space_override
+// };
 
 
 #define DEL_MS 1 // Delay ms
@@ -172,7 +172,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #define LAYOUT_LAYER_NUM                                                                    \
        LCTL(KC_TAB),       KC_DLR,     KC_LPRN,  KC_PERC, KC_RPRN,    KC_EQL,     KC_PLUS,    KC_7,    KC_8,    KC_9,    KC_L,  KC_SLSH, \
        LSFT(LCTL(KC_TAB)),  KC_TILD,    KC_LBRC,  KC_AMPR, KC_RBRC,    KC_BSLS,    KC_ASTR,    KC_4,    KC_5,    KC_6,    KC_S,  KC_SPACE, \
-       KC_LSFT,             KC_EXLM,   KC_LCBR,  KC_MINUS,KC_RCBR,    KC_PIPE,    KC_B,    KC_1,    KC_2,    KC_3,    KC_Z,  KC_RSFT, \
+       KC_LSFT,             KC_EXLM,   KC_LCBR,  KC_MINUS,KC_RCBR,    KC_PIPE,    KC_UNDS,    KC_1,    KC_2,    KC_3,    KC_Z,  KC_RSFT, \
                             KC_NO, KC_GRV, KC_ESC, KC_0, KC_CIRC, KC_PIPE
 
 

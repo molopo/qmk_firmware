@@ -34,5 +34,5 @@ MOUSE_SHARED_EP = no # Unify multiple HID interfaces into a single Endpoint
 ALLOW_WARNINGS = yes
 
 LTO_ENABLE = yes # link time optimization
-KEY_OVERRIDE_ENABLE = yes
+KEY_OVERRIDE_ENABLE = no
 ONESHOT_ENABLE = yes
