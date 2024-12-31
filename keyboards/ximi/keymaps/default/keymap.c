@@ -22,16 +22,15 @@
 
 enum ximi_keymap_layers {
     LAYER_BASE = 0,
-    LAYER_FUNCTION,
-    LAYER_NAVIGATION,
-  //  LAYER_MEDIA,
-    LAYER_POINTER,
-    LAYER_NUMERAL,
-   // LAYER_SYMBOLS,
+    LAYER_MOD,
+    LAYER_MODOPT,
+    LAYER_MODCTRL,
+    LAYER_MODCMD,
+    LAYER_NUM
 };
 
 // Automatically enable sniping-mode on the pointer layer.
-#define XIMI_AUTO_SNIPING_ON_LAYER LAYER_POINTER
+// #define XIMI_AUTO_SNIPING_ON_LAYER LAYER_POINTER
 
 #ifdef XIMI_AUTO_POINTER_LAYER_TRIGGER_ENABLE
 static uint16_t auto_pointer_layer_timer = 0;
@@ -45,12 +44,8 @@ static uint16_t auto_pointer_layer_timer = 0;
 #    endif // XIMI_AUTO_POINTER_LAYER_TRIGGER_THRESHOLD
 #endif     // XIMI_AUTO_POINTER_LAYER_TRIGGER_ENABLE
 
-#define ESC_MED MT(MOD_LSFT, KC_ESC)
-#define SPC_NAV LT(LAYER_NAVIGATION, KC_ENT)
-#define TAB_FUN LT(LAYER_FUNCTION, KC_TAB)
-#define ENT_SYM LT(LAYER_FUNCTION, KC_BSPC)
-#define BSP_NUM LT(LAYER_NUMERAL, KC_SPC)
-#define _L_PTR(KC) LT(LAYER_POINTER, KC)
+#define TO_BASE TO(LAYER_BASE)
+
 
 #ifndef POINTING_DEVICE_ENABLE
 #    define DRGSCRL KC_NO
@@ -60,142 +55,126 @@ static uint16_t auto_pointer_layer_timer = 0;
 #endif // !POINTING_DEVICE_ENABLE
 
 enum custom_keycodes {
-    ALTSAE = SAFE_RANGE,
+    ARROW = SAFE_RANGE,
+    DBL_DSH,
+    UP5,
+    DOWN5,
+    UP10,
+    DOWN10
 };
 
+
+
+const uint16_t PROGMEM num_left_combo[] = {KC_J, KC_K, COMBO_END};
+const uint16_t PROGMEM num_right_combo[] = {KC_M, KC_W, COMBO_END};
+const uint16_t PROGMEM mod_combo[] = {KC_E, KC_U, COMBO_END};
+const uint16_t PROGMEM modopt_combo[] = {KC_O, KC_U, COMBO_END};
+const uint16_t PROGMEM modctrl_combo[] = {KC_A, KC_U, COMBO_END};
+const uint16_t PROGMEM mod_hold_combo[] = {KC_DOT, KC_P, COMBO_END};
+const uint16_t PROGMEM modopt_hold_combo[] = {KC_COMMA, KC_P, COMBO_END};
+const uint16_t PROGMEM modcmd_hold_combo[] = {KC_G, KC_C, COMBO_END};
+const uint16_t PROGMEM sticky_cmd_ctrl_combo[] = {KC_H, KC_S, COMBO_END};
+const uint16_t PROGMEM sticky_cmd_combo[] = {KC_H, KC_T, COMBO_END};
+const uint16_t PROGMEM sticky_ctrl_combo[] = {KC_H, KC_N, COMBO_END};
+const uint16_t PROGMEM spotlight_combo[] = {KC_U, KC_H, COMBO_END};
+combo_t key_combos[] = {
+    COMBO(num_left_combo, MO(LAYER_NUM)),
+    COMBO(num_right_combo, MO(LAYER_NUM)),
+    COMBO(mod_combo, MO(LAYER_MOD)),
+    COMBO(modopt_combo, MO(LAYER_MODOPT)),
+    COMBO(modctrl_combo, MO(LAYER_MODCTRL)),
+    COMBO(mod_hold_combo, TO(LAYER_MOD)),
+    COMBO(modopt_hold_combo, TO(LAYER_MODOPT)),
+    COMBO(modcmd_hold_combo, TO(LAYER_MODCMD)),
+    COMBO(sticky_cmd_combo, OSM(MOD_LGUI)),
+    COMBO(sticky_cmd_ctrl_combo, OSM(MOD_LGUI | MOD_LCTL)),
+    COMBO(sticky_ctrl_combo, OSM(MOD_LCTL)),
+    COMBO(spotlight_combo, LCMD(KC_SPACE)),
+};
+
+const key_override_t shift_space_override = ko_make_basic(MOD_MASK_SHIFT, KC_SPACE, KC_UNDS);
+
+// This globally defines all key overrides to be used
+const key_override_t **key_overrides = {
+	&shift_space_override
+};
+
+
+#define DEL_MS 1 // Delay ms
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
-    case ALTSAE:
+    case ARROW:
         if (record->event.pressed) {
-            SEND_STRING(SS_LALT("sae"));
-        } else {
-
+            SEND_STRING("->");
         }
         break;
-
-
+    case DBL_DSH:
+        if (record->event.pressed) {
+            SEND_STRING("--");
+        }
+        break;
+    case UP5:
+        if (record->event.pressed) {
+            SEND_STRING(  SS_TAP(X_UP) SS_DELAY(DEL_MS) SS_TAP(X_UP) SS_DELAY(DEL_MS) SS_TAP(X_UP) SS_DELAY(DEL_MS) SS_TAP(X_UP) SS_DELAY(DEL_MS) SS_TAP(X_UP) SS_DELAY(DEL_MS) SS_TAP(X_UP) SS_DELAY(DEL_MS));
+        }
+        break;
+    case DOWN5:
+        if (record->event.pressed) {
+            SEND_STRING( SS_TAP(X_DOWN) SS_DELAY(DEL_MS) SS_TAP(X_DOWN) SS_DELAY(DEL_MS) SS_TAP(X_DOWN) SS_DELAY(DEL_MS) SS_TAP(X_DOWN) SS_DELAY(DEL_MS) SS_TAP(X_DOWN) SS_DELAY(DEL_MS) SS_TAP(X_DOWN) SS_DELAY(DEL_MS) );
+        }
+        break;
+    case UP10:
+        if (record->event.pressed) {
+            SEND_STRING( SS_TAP(X_UP) SS_DELAY(DEL_MS) SS_TAP(X_UP) SS_DELAY(DEL_MS) SS_TAP(X_UP) SS_DELAY(DEL_MS) SS_TAP(X_UP) SS_DELAY(DEL_MS) SS_TAP(X_UP) SS_DELAY(DEL_MS) SS_TAP(X_UP) SS_DELAY(DEL_MS) SS_TAP(X_UP) SS_DELAY(DEL_MS) SS_TAP(X_UP) SS_DELAY(DEL_MS) SS_TAP(X_UP) SS_DELAY(DEL_MS) SS_TAP(X_UP) SS_DELAY(DEL_MS) SS_TAP(X_UP) SS_DELAY(DEL_MS));
+        }
+        break;
+    case DOWN10:
+        if (record->event.pressed) {
+            SEND_STRING(SS_TAP(X_DOWN) SS_DELAY(DEL_MS) SS_TAP(X_DOWN) SS_DELAY(DEL_MS) SS_TAP(X_DOWN) SS_DELAY(DEL_MS) SS_TAP(X_DOWN) SS_DELAY(DEL_MS) SS_TAP(X_DOWN) SS_DELAY(DEL_MS) SS_TAP(X_DOWN) SS_DELAY(DEL_MS) SS_TAP(X_DOWN) SS_DELAY(DEL_MS) SS_TAP(X_DOWN) SS_DELAY(DEL_MS) SS_TAP(X_DOWN) SS_DELAY(DEL_MS) SS_TAP(X_DOWN) SS_DELAY(DEL_MS) SS_TAP(X_DOWN) SS_DELAY(DEL_MS));
+        }
+        break;
     }
     return true;
 };
 
 // clang-format off
-/** \brief QWERTY layout (3 rows, 10 columns). */
+/** \brief Dvorak layout (3 rows, 10 columns). */
 #define LAYOUT_LAYER_BASE                                                                     \
-       KC_TAB,   KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,  KC_BSPC, \
-       KC_LSFT,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_QUOT, KC_ENT, \
-       KC_LCTL,  KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT, \
-                      ESC_MED, SPC_NAV, TAB_FUN, ENT_SYM, BSP_NUM, KC_ENT
+       KC_TAB,   KC_SEMICOLON,KC_COMMA,  KC_DOT, KC_P,    KC_Y,    KC_F,    KC_G,    KC_C,    KC_R,    KC_L,  KC_SLSH, \
+       KC_ENT,   KC_A,        KC_O,      KC_E,   KC_U,    KC_I,    KC_D,    KC_H,    KC_T,    KC_N,    KC_S,  KC_SPACE, \
+       KC_LSFT,  KC_QUOTE,    KC_Q,      KC_J,   KC_K,    KC_X,    KC_B,    KC_M,    KC_W,    KC_V,    KC_Z,  KC_RSFT, \
+                      KC_HASH, KC_ESC, KC_BTN1, KC_BTN1, KC_AT, KC_BSLS
 
-/** Convenience row shorthands. */
-#define _______________DEAD_HALF_ROW_______________ XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
-#define ______________HOME_ROW_GACS_L______________ KC_LGUI, KC_LALT, KC_LCTL, KC_LSFT, XXXXXXX, XXXXXXX
-#define ______________HOME_ROW_GACS_R______________ XXXXXXX, XXXXXXX, KC_LSFT, KC_LCTL, KC_LALT, KC_LGUI
+#define LAYOUT_LAYER_MOD                                                                     \
+       KC_NO,   KC_NO,    KC_NO,     KC_NO,   KC_NO,    TO_BASE,  UP5,    KC_PAGE_UP, KC_UP,    KC_PAGE_DOWN, KC_NO,  KC_BSPC, \
+       KC_NO,   KC_LSFT,  KC_NO,     KC_NO,   KC_NO,    KC_NO,    DOWN5,    KC_LEFT,    KC_DOWN,  KC_RIGHT,     KC_NO,  KC_MINUS, \
+       KC_NO,   KC_NO,    KC_NO,     KC_NO,   KC_NO,    KC_NO,    KC_NO,    KC_NO,      KC_NO,    KC_NO,        KC_NO,  KC_NO, \
+                      KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO
 
-/*
- * Layers used on the Ximi Nano.
- *
- * These layers started off heavily inspired by the Miryoku layout, but trimmed
- * down and tailored for a stock experience that is meant to be fundation for
- * further personalization.
- *
- * See https://github.com/manna-harbour/miryoku for the original layout.
- */
+#define LAYOUT_LAYER_MODOPT                                                                     \
+       KC_NO,   KC_NO,    KC_NO,     KC_NO,   KC_NO,    TO_BASE,  UP10,    KC_HOME,       LALT(KC_UP),    KC_END,        KC_NO,  LALT(KC_BSPC), \
+       KC_NO,   KC_LSFT,  KC_NO,     KC_NO,   KC_NO,    KC_NO,    DOWN10,    LALT(KC_LEFT), LALT(KC_DOWN),  LALT(KC_RIGHT),KC_NO,  DBL_DSH, \
+       KC_NO,   KC_NO,    KC_NO,     KC_NO,   KC_NO,    KC_NO,    KC_NO,    KC_NO,         KC_NO,          KC_NO,         KC_NO,  KC_NO, \
+                      KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO
 
-/**
- * \brief Function layer.
- *
- * Secondary right-hand layer has function keys mirroring the numerals on the
- * primary layer with extras on the pinkie column, plus system keys on the inner
- * column. App is on the tertiary thumb key and other thumb keys are duplicated
- * from the base layer to enable auto-repeat.
- */
-#define LAYOUT_LAYER_FUNCTION                                                                 \
-    _______________DEAD_HALF_ROW_______________, KC_PSCR,   KC_F7,   KC_F8,   KC_F9,  KC_F12, KC_NO, \
-    ______________HOME_ROW_GACS_L______________, KC_SCRL,   KC_F4,   KC_F5,   KC_F6,  KC_F11, KC_NO, \
-    _______________DEAD_HALF_ROW_______________, KC_PAUS,   KC_F1,   KC_F2,   KC_F3,  KC_F10, KC_NO, \
-                      XXXXXXX, XXXXXXX, _______, XXXXXXX,   XXXXXXX, XXXXXXX
+#define LAYOUT_LAYER_MODCTRL                                                                     \
+       KC_NO,   KC_NO,    KC_NO,     KC_NO,   KC_NO,    TO_BASE,  KC_NO,    KC_HOME,       LCTL(KC_UP),    KC_END,        KC_NO,  LCTL(KC_BSPC), \
+       KC_NO,   KC_NO,  KC_LSFT,     KC_NO,   KC_NO,    KC_NO,    KC_NO,    LCTL(KC_LEFT), LCTL(KC_DOWN),  LCTL(KC_RIGHT),KC_NO,  ARROW, \
+       KC_NO,   KC_NO,    KC_NO,     KC_NO,   KC_NO,    KC_NO,    KC_NO,    KC_NO,         KC_NO,          KC_NO,         KC_NO,  KC_NO, \
+                      KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO
 
-/**
- * \brief Media layer.
- *
- * Tertiary left- and right-hand layer is media and RGB control.  This layer is
- * symmetrical to accomodate the left- and right-hand trackball.
- */
-/*#define LAYOUT_LAYER_MEDIA                                                                    \
-    XXXXXXX,RGB_RMOD, RGB_TOG, RGB_MOD, XXXXXXX, XXXXXXX,RGB_RMOD, RGB_TOG, RGB_MOD, XXXXXXX, \
-    KC_MPRV, KC_VOLD, KC_MUTE, KC_VOLU, KC_MNXT, KC_MPRV, KC_VOLD, KC_MUTE, KC_VOLU, KC_MNXT, \
-    XXXXXXX, XXXXXXX, XXXXXXX, EE_CLR,  QK_BOOT, QK_BOOT, EE_CLR,  XXXXXXX, XXXXXXX, XXXXXXX, \
-                      _______, KC_MPLY, KC_MSTP, KC_MSTP, KC_MPLY
-*/
+#define LAYOUT_LAYER_MODCMD                                                                     \
+       KC_TAB,   KC_SEMICOLON,KC_COMMA,          KC_DOT,  TO_BASE, KC_Y,    KC_F,    LCMD(KC_G),  KC_C,        KC_R,          KC_L,        KC_SLSH, \
+       KC_ENT,   KC_A,        KC_O,              KC_E,    KC_U,    KC_I,    KC_D,    LCMD(KC_H),  KC_T,        LCMD(KC_N),    KC_S,        KC_SPACE, \
+       KC_LSFT,  KC_QUOTE,    LCMD(KC_Q),        KC_J,    KC_K,    KC_X,    KC_B,    KC_M,        LCMD(KC_W),  (KC_V),        LCMD(KC_Z),  KC_RSFT, \
+                      KC_NO, KC_HASH, KC_ESC, KC_LCAP, KC_AT, KC_BSLS
 
-/** \brief Mouse emulation and pointer functions. */
-#define LAYOUT_LAYER_POINTER                                                                  \
-    EE_CLR,  QK_BOOT, XXXXXXX, DPI_MOD, S_D_MOD, XXXXXXX, S_D_MOD, DPI_MOD, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
-    ______________HOME_ROW_GACS_L______________, ______________HOME_ROW_GACS_R______________, \
-    XXXXXXX, _______, DRGSCRL, SNIPING, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, SNIPING, DRGSCRL, _______, XXXXXXX, \
-                      KC_BTN2, KC_BTN1, KC_BTN3, KC_BTN3, KC_BTN1, XXXXXXX
+#define LAYOUT_LAYER_NUM                                                                    \
+       LCTL(KC_TAB),       KC_DLR,     KC_LPRN,  KC_PERC, KC_RPRN,    KC_EQL,     KC_PLUS,    KC_7,    KC_8,    KC_9,    KC_L,  KC_SLSH, \
+       LSFT(LCTL(KC_TAB)),  KC_TILD,    KC_LBRC,  KC_AMPR, KC_RBRC,    KC_BSLS,    KC_ASTR,    KC_4,    KC_5,    KC_6,    KC_S,  KC_SPACE, \
+       KC_LSFT,             KC_EXLM,   KC_LCBR,  KC_MINUS,KC_RCBR,    KC_PIPE,    KC_B,    KC_1,    KC_2,    KC_3,    KC_Z,  KC_RSFT, \
+                            KC_NO, KC_GRV, KC_ESC, KC_0, KC_CIRC, KC_PIPE
 
-/**
- * \brief Navigation layer.
- *
- * Primary right-hand layer (left home thumb) is navigation and editing. Cursor
- * keys are on the home position, line and page movement below, clipboard above,
- * caps lock and insert on the inner column. Thumb keys are duplicated from the
- * base layer to avoid having to layer change mid edit and to enable auto-repeat.
- */
-#define LAYOUT_LAYER_NAVIGATION                                                               \
-    _______________DEAD_HALF_ROW_______________, XXXXXXX, XXXXXXX, KC_UP, XXXXXXX, XXXXXXX, XXXXXXX, \
-    ______________HOME_ROW_GACS_L______________, KC_CAPS, KC_LEFT, KC_DOWN,   KC_RGHT, XXXXXXX, XXXXXXX, \
-    _______________DEAD_HALF_ROW_______________,  KC_INS, KC_HOME, KC_PGDN, KC_PGUP,  KC_END, XXXXXXX, \
-                      XXXXXXX, _______, XXXXXXX,  KC_ENT, KC_BSPC, XXXXXXX
-
-/**
- * \brief Numeral layout.
- *
- * Primary left-hand layer (right home thumb) is numerals and symbols. Numerals
- * are in the standard numpad locations with symbols in the remaining positions.
- * `KC_DOT` is duplicated from the base layer.
- */
-#define LAYOUT_LAYER_NUMERAL                                                                  \
-    XXXXXXX, KC_F1,   KC_F2,   KC_F3,   KC_F4,  KC_F5, KC_LBRC,  KC_7,    KC_8,    KC_9,  KC_RBRC, XXXXXXX, \
-    ______________HOME_ROW_GACS_L______________, KC_SCLN, KC_4,    KC_5,    KC_6,  KC_DOT, XXXXXXX,  \
-    XXXXXXX, KC_F6,   KC_F7,   KC_F8,   KC_F9,  KC_F10, KC_0,     KC_1,    KC_2,    KC_3,  KC_SLASH, XXXXXXX,   \
-                       ALTSAE,    KC_BSPC, KC_MINS, XXXXXXX, _______, XXXXXXX
-
-/**
- * \brief Symbols layer.
- *
- * Secondary left-hand layer has shifted symbols in the same locations to reduce
- * chording when using mods with shifted symbols. `KC_LPRN` is duplicated next to
- * `KC_RPRN`.
- */
-
-/*#define LAYOUT_LAYER_SYMBOLS                                                                  \
-    KC_LCBR, KC_AMPR, KC_ASTR, KC_LPRN, KC_RCBR, _______________DEAD_HALF_ROW_______________, \
-    KC_COLN,  KC_DLR, KC_PERC, KC_CIRC, KC_PLUS, ______________HOME_ROW_GACS_R______________, \
-    KC_TILD, KC_EXLM,   KC_AT, KC_HASH, KC_PIPE, _______________DEAD_HALF_ROW_______________, \
-                      KC_LPRN, KC_RPRN, KC_UNDS, _______, XXXXXXX
-*/
-/**
- * \brief Add Home Row mod to a layout.
- *
- * Expects a 10-key per row layout.  Adds support for GACS (Gui, Alt, Ctl, Shift)
- * home row.  The layout passed in parameter must contain at least 20 keycodes.
- *
- * This is meant to be used with `LAYER_ALPHAS_QWERTY` defined above, eg.:
- *
- *     HOME_ROW_MOD_GACS(LAYER_ALPHAS_QWERTY)
- */
-#define _HOME_ROW_MOD_GACS(                                            \
-    L00, L01, L02, L03, L04, L05, R06, R07, R08, R09, R0A, R0B,     \
-    L10, L11, L12, L13, L14, L15, R16, R17, R18, R19, R1A, R1B,     \
-    ...)                                                               \
-             L00,         L01,         L02,         L03,         L04,     L05, \
-             R06,         R07,         R08,         R09,         R0A,     R0B, \
-             L10,         L11,      LALT_T(L12),   LCTL_T(L13),  LSFT_T(L14),    L15,  \
-             R16,  RSFT_T(R17), RCTL_T(R18), LALT_T(R19),    R1A,    R1B, \
-      __VA_ARGS__
-#define HOME_ROW_MOD_GACS(...) _HOME_ROW_MOD_GACS(__VA_ARGS__)
 
 /**
  * \brief Add pointer layer keys to a layout.
@@ -207,32 +186,29 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
  *
  *     (LAYER_ALPHAS_QWERTY)
  */
-#define _POINTER_MOD(                                                  \
-    L00, L01, L02, L03, L04, L05, R06, R07, R08, R09, R1A, R1B,                 \
-    L10, L11, L12, L13, L14, L15, R16, R17, R18, R19, R2A, R2B,                \
-    L20, L21, L22, L23, L24, L25, R26, R27, R28, R29, R3A, R3B,                \
-    ...)                                                               \
-             L00,         L01,         L02,         L03,         L04,  L05,   \
-             R06,         R07,         R08,         R09,         R1A,  R1B, \
-             L10,         L11,         L12,         L13,         L14,  L15, \
-             R16,         R17,         R18,         R19,         R1A,  R1B, \
-      _L_PTR(L20),        L21,         L22,         L23,         L24,  L25, \
-             R26,         R27,         R28,         R29,         R2A,  R2B, \
-      __VA_ARGS__
-#define POINTER_MOD(...) _POINTER_MOD(__VA_ARGS__)
+// #define _POINTER_MOD(                                                  \
+//     L00, L01, L02, L03, L04, L05, R06, R07, R08, R09, R1A, R1B,                 \
+//     L10, L11, L12, L13, L14, L15, R16, R17, R18, R19, R2A, R2B,                \
+//     L20, L21, L22, L23, L24, L25, R26, R27, R28, R29, R3A, R3B,                \
+//     ...)                                                               \
+//              L00,         L01,         L02,         L03,         L04,  L05,   \
+//              R06,         R07,         R08,         R09,         R1A,  R1B, \
+//              L10,         L11,         L12,         L13,         L14,  L15, \
+//              R16,         R17,         R18,         R19,         R1A,  R1B, \
+//       _L_PTR(L20),        L21,         L22,         L23,         L24,  L25, \
+//              R26,         R27,         R28,         R29,         R2A,  R2B, \
+//       __VA_ARGS__
+// #define POINTER_MOD(...) _POINTER_MOD(__VA_ARGS__)
 
 #define LAYOUT_wrapper(...) LAYOUT(__VA_ARGS__)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-  [LAYER_BASE] = LAYOUT_wrapper(
-    POINTER_MOD(HOME_ROW_MOD_GACS(LAYOUT_LAYER_BASE))
-  ),
-  [LAYER_FUNCTION] = LAYOUT_wrapper(LAYOUT_LAYER_FUNCTION),
-  [LAYER_NAVIGATION] = LAYOUT_wrapper(LAYOUT_LAYER_NAVIGATION),
- // [LAYER_MEDIA] = LAYOUT_wrapper(LAYOUT_LAYER_MEDIA),
-  [LAYER_NUMERAL] = LAYOUT_wrapper(LAYOUT_LAYER_NUMERAL),
-  [LAYER_POINTER] = LAYOUT_wrapper(LAYOUT_LAYER_POINTER),
- // [LAYER_SYMBOLS] = LAYOUT_wrapper(LAYOUT_LAYER_SYMBOLS),
+  [LAYER_BASE] = LAYOUT_wrapper(LAYOUT_LAYER_BASE),
+  [LAYER_MOD] = LAYOUT_wrapper(LAYOUT_LAYER_MOD),
+  [LAYER_MODOPT] = LAYOUT_wrapper(LAYOUT_LAYER_MODOPT),
+  [LAYER_MODCTRL] = LAYOUT_wrapper(LAYOUT_LAYER_MODCTRL),
+  [LAYER_MODCMD] = LAYOUT_wrapper(LAYOUT_LAYER_MODCMD),
+  [LAYER_NUM] = LAYOUT_wrapper(LAYOUT_LAYER_NUM)
 };
 // clang-format on
 

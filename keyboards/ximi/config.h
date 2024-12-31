@@ -137,10 +137,8 @@
 // #endif // VIA_ENABLE
 
 
-/* Disable unused features. */
-#define NO_ACTION_ONESHOT
-
-/* Ximi-specific features. */
+#define ONESHOT_TIMEOUT 1000
+#define NO_ACTION_MACRO
 
 
 
@@ -148,5 +146,5 @@
 // Automatically enable the pointer layer when moving the trackball.  See also:
 // - `XIMI_AUTO_POINTER_LAYER_TRIGGER_TIMEOUT_MS`
 // - `XIMI_AUTO_POINTER_LAYER_TRIGGER_THRESHOLD`
-#define XIMI_AUTO_POINTER_LAYER_TRIGGER_ENABLE
+// #define XIMI_AUTO_POINTER_LAYER_TRIGGER_ENABLE
 #endif // POINTING_DEVICE_ENABLE

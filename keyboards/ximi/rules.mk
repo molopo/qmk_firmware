@@ -22,6 +22,8 @@ AUDIO_ENABLE = no           # Audio output on port C6
 FAUXCLICKY_ENABLE = no      # Use buzzer to emulate clicky switches
 HD44780_ENABLE = no         # Enable support for HD44780 based LCDs
 
+COMBO_ENABLE = yes
+
 SPLIT_KEYBOARD = yes
 POINTING_DEVICE_ENABLE = yes # Enable trackball
 POINTING_DEVICE_DRIVER = pmw3360
@@ -29,3 +31,8 @@ MOUSE_SHARED_EP = no # Unify multiple HID interfaces into a single Endpoint
 
 # PMW3360_ENABLE = yes
 #    OPT_DEFS += -DFP_TRACKBALL_BOTH
+ALLOW_WARNINGS = yes
+
+LTO_ENABLE = yes # link time optimization
+KEY_OVERRIDE_ENABLE = yes
+ONESHOT_ENABLE = yes
