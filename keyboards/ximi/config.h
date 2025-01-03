@@ -74,11 +74,11 @@
 
 //#define POINTING_DEVICE_ROTATION_180_RIGHT
 #define POINTING_DEVICE_COMBINED            // two pointing devices
-#define POINTING_DEVICE_INVERT_Y            // for trackball on the left
+// #define POINTING_DEVICE_INVERT_Y            // for trackball on the left
 #define POINTING_DEVICE_INVERT_X_RIGHT      // for trackball on the right
 
 #define PMW33XX_CS_PIN F7
-# define PMW3360_CPI 400
+#define PMW3360_CPI 400
 // /* RGB matrix support. */
 // #ifdef RGB_MATRIX_ENABLE
 // #    ifndef __arm__
@@ -137,14 +137,15 @@
 // #endif // VIA_ENABLE
 
 
+
 #define ONESHOT_TIMEOUT 1000
 #define NO_ACTION_MACRO
 
 
 
-#ifdef POINTING_DEVICE_ENABLEp
+// #ifdef POINTING_DEVICE_ENABLE
 // Automatically enable the pointer layer when moving the trackball.  See also:
 // - `XIMI_AUTO_POINTER_LAYER_TRIGGER_TIMEOUT_MS`
 // - `XIMI_AUTO_POINTER_LAYER_TRIGGER_THRESHOLD`
 // #define XIMI_AUTO_POINTER_LAYER_TRIGGER_ENABLE
-#endif // POINTING_DEVICE_ENABLE
+// #endif // POINTING_DEVICE_ENABLE

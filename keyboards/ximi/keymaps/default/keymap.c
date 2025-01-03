@@ -140,40 +140,40 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 // clang-format off
 /** \brief Dvorak layout (3 rows, 10 columns). */
 #define LAYOUT_LAYER_BASE                                                                     \
-       KC_TAB,   KC_SEMICOLON,KC_COMMA,  KC_DOT, KC_P,    KC_Y,    KC_F,    KC_G,    KC_C,    KC_R,    KC_L,  KC_SLSH, \
-       KC_ENT,   KC_A,        KC_O,      KC_E,   KC_U,    KC_I,    KC_D,    KC_H,    KC_T,    KC_N,    KC_S,  KC_SPACE, \
-       KC_LSFT,  KC_QUOTE,    KC_Q,      KC_J,   KC_K,    KC_X,    KC_B,    KC_M,    KC_W,    KC_V,    KC_Z,  KC_RSFT, \
-                      KC_HASH, KC_ESC, KC_BTN1, KC_BTN1, KC_AT, KC_BSLS
+       KC_TAB,                KC_SEMICOLON,KC_COMMA,  KC_DOT, KC_P,    KC_Y,    KC_F,    KC_G,    KC_C,    KC_R,    KC_L,  KC_SLSH, \
+       MT(MOD_LSFT, KC_ENT),   KC_A,        KC_O,      KC_E,   KC_U,    KC_I,    KC_D,    KC_H,    KC_T,    KC_N,    KC_S,  MT(MOD_LSFT, KC_SPACE), \
+       KC_LSFT,                KC_QUOTE,    KC_Q,      KC_J,   KC_K,    KC_X,    KC_B,    KC_M,    KC_W,    KC_V,    KC_Z,  KC_RSFT, \
+                               KC_HASH, KC_BTN1, KC_ESC, KC_ESC, KC_BTN1, KC_AT
 
 #define LAYOUT_LAYER_MOD                                                                     \
-       KC_NO,   KC_NO,    KC_NO,     KC_NO,   KC_NO,    TO_BASE,  UP5,    KC_PAGE_UP, KC_UP,    KC_PAGE_DOWN, KC_NO,  KC_BSPC, \
-       KC_NO,   KC_LSFT,  KC_NO,     KC_NO,   KC_NO,    KC_NO,    DOWN5,    KC_LEFT,    KC_DOWN,  KC_RIGHT,     KC_NO,  KC_MINUS, \
-       KC_NO,   KC_NO,    KC_NO,     KC_NO,   KC_NO,    KC_NO,    KC_NO,    KC_NO,      KC_NO,    KC_NO,        KC_NO,  KC_NO, \
+       LCMD(LALT(KC_ESC)),   KC_NO,    KC_NO,     KC_NO,   KC_NO,    TO_BASE,  UP5,    KC_PAGE_UP, KC_UP,    KC_PAGE_DOWN, KC_NO,  KC_BSPC, \
+       LCMD(KC_BSPC),        KC_LSFT,  KC_NO,     KC_NO,   KC_NO,    KC_NO,    DOWN5,    KC_LEFT,    KC_DOWN,  KC_RIGHT,     KC_NO,  KC_MINUS, \
+       KC_NO,                KC_NO,    KC_NO,     KC_NO,   KC_NO,    KC_NO,    KC_NO,    KC_NO,      KC_NO,    KC_NO,        KC_NO,  KC_NO, \
                       KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO
 
 #define LAYOUT_LAYER_MODOPT                                                                     \
        KC_NO,   KC_NO,    KC_NO,     KC_NO,   KC_NO,    TO_BASE,  UP10,    KC_HOME,       LALT(KC_UP),    KC_END,        KC_NO,  LALT(KC_BSPC), \
-       KC_NO,   KC_LSFT,  KC_NO,     KC_NO,   KC_NO,    KC_NO,    DOWN10,    LALT(KC_LEFT), LALT(KC_DOWN),  LALT(KC_RIGHT),KC_NO,  DBL_DSH, \
+       KC_NO,   KC_LSFT,  KC_NO,     KC_NO,   KC_NO,    KC_NO,    DOWN10,    LALT(KC_LEFT), LALT(KC_DOWN),  LALT(KC_RIGHT),KC_NO,  ARROW, \
        KC_NO,   KC_NO,    KC_NO,     KC_NO,   KC_NO,    KC_NO,    KC_NO,    KC_NO,         KC_NO,          KC_NO,         KC_NO,  KC_NO, \
                       KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO
 
 #define LAYOUT_LAYER_MODCTRL                                                                     \
-       KC_NO,   KC_NO,    KC_NO,     KC_NO,   KC_NO,    TO_BASE,  KC_NO,    KC_HOME,       LCTL(KC_UP),    KC_END,        KC_NO,  LCTL(KC_BSPC), \
-       KC_NO,   KC_NO,  KC_LSFT,     KC_NO,   KC_NO,    KC_NO,    KC_NO,    LCTL(KC_LEFT), LCTL(KC_DOWN),  LCTL(KC_RIGHT),KC_NO,  ARROW, \
+       KC_NO,   KC_NO,    KC_NO,     KC_NO,   KC_NO,    TO_BASE,  KC_NO,    KC_HOME,       KC_UP,         KC_END,        KC_NO,  LCTL(KC_BSPC), \
+       KC_NO,   KC_NO,  KC_LSFT,     KC_NO,   KC_NO,    KC_NO,    KC_NO,    LCTL(KC_LEFT), KC_DOWN,       LCTL(KC_RIGHT),KC_NO,  DBL_DSH, \
        KC_NO,   KC_NO,    KC_NO,     KC_NO,   KC_NO,    KC_NO,    KC_NO,    KC_NO,         KC_NO,          KC_NO,         KC_NO,  KC_NO, \
                       KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO
 
 #define LAYOUT_LAYER_MODCMD                                                                     \
-       KC_TAB,   KC_SEMICOLON,KC_COMMA,          KC_DOT,  TO_BASE, KC_Y,    KC_F,    LCMD(KC_G),  KC_C,        KC_R,          KC_L,        KC_SLSH, \
+       KC_TAB,   KC_SEMICOLON,KC_COMMA,          KC_DOT,  KC_P, TO_BASE,    KC_F,    LCMD(KC_G),  KC_C,        KC_R,          KC_L,        KC_SLSH, \
        KC_ENT,   KC_A,        KC_O,              KC_E,    KC_U,    KC_I,    KC_D,    LCMD(KC_H),  KC_T,        LCMD(KC_N),    KC_S,        KC_SPACE, \
        KC_LSFT,  KC_QUOTE,    LCMD(KC_Q),        KC_J,    KC_K,    KC_X,    KC_B,    KC_M,        LCMD(KC_W),  (KC_V),        LCMD(KC_Z),  KC_RSFT, \
                       KC_NO, KC_HASH, KC_ESC, KC_LCAP, KC_AT, KC_BSLS
 
 #define LAYOUT_LAYER_NUM                                                                    \
-       LCTL(KC_TAB),       KC_DLR,     KC_LPRN,  KC_PERC, KC_RPRN,    KC_EQL,     KC_PLUS,    KC_7,    KC_8,    KC_9,    KC_L,  KC_SLSH, \
+       LCTL(KC_TAB),       KC_DLR,     KC_LPRN,  KC_PERC, KC_RPRN,    KC_EQL,     KC_PLUS,    KC_7,    KC_8,    KC_9,    KC_L,  KC_BSPC, \
        LSFT(LCTL(KC_TAB)),  KC_TILD,    KC_LBRC,  KC_AMPR, KC_RBRC,    KC_BSLS,    KC_ASTR,    KC_4,    KC_5,    KC_6,    KC_S,  KC_SPACE, \
        KC_LSFT,             KC_EXLM,   KC_LCBR,  KC_MINUS,KC_RCBR,    KC_PIPE,    KC_UNDS,    KC_1,    KC_2,    KC_3,    KC_Z,  KC_RSFT, \
-                            KC_NO, KC_GRV, KC_ESC, KC_0, KC_CIRC, KC_PIPE
+                            KC_GRV, KC_NO, KC_ESC, KC_NO, KC_0, KC_CIRC
 
 
 /**
@@ -212,49 +212,47 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 // clang-format on
 
-#ifdef POINTING_DEVICE_ENABLE
-#    ifdef XIMI_AUTO_POINTER_LAYER_TRIGGER_ENABLE
-report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
-    if (abs(mouse_report.x) > XIMI_AUTO_POINTER_LAYER_TRIGGER_THRESHOLD || abs(mouse_report.y) > XIMI_AUTO_POINTER_LAYER_TRIGGER_THRESHOLD) {
-        if (auto_pointer_layer_timer == 0) {
-            layer_on(LAYER_POINTER);
-#        ifdef RGB_MATRIX_ENABLE
-            rgb_matrix_mode_noeeprom(RGB_MATRIX_NONE);
-            rgb_matrix_sethsv_noeeprom(HSV_GREEN);
-#        endif // RGB_MATRIX_ENABLE
-        }
-        auto_pointer_layer_timer = timer_read();
-    }
-    return mouse_report;
-}
+// #ifdef POINTING_DEVICE_ENABLE
+// #    ifdef XIMI_AUTO_POINTER_LAYER_TRIGGER_ENABLE
+// report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
+//     if (abs(mouse_report.x) > XIMI_AUTO_POINTER_LAYER_TRIGGER_THRESHOLD || abs(mouse_report.y) > XIMI_AUTO_POINTER_LAYER_TRIGGER_THRESHOLD) {
+//         if (auto_pointer_layer_timer == 0) {
+//             layer_on(LAYER_POINTER);
+// #        ifdef RGB_MATRIX_ENABLE
+//             rgb_matrix_mode_noeeprom(RGB_MATRIX_NONE);
+//             rgb_matrix_sethsv_noeeprom(HSV_GREEN);
+// #        endif // RGB_MATRIX_ENABLE
+//         }
+//         auto_pointer_layer_timer = timer_read();
+//     }
+//     return mouse_report;
+// }
 
-void matrix_scan_user(void) {
-    if (auto_pointer_layer_timer != 0 && TIMER_DIFF_16(timer_read(), auto_pointer_layer_timer) >= XIMI_AUTO_POINTER_LAYER_TRIGGER_TIMEOUT_MS) {
-        auto_pointer_layer_timer = 0;
-        layer_off(LAYER_POINTER);
-#        ifdef RGB_MATRIX_ENABLE
-        rgb_matrix_mode_noeeprom(RGB_MATRIX_DEFAULT_MODE);
-#        endif // RGB_MATRIX_ENABLE
-    }
-}
-#    endif // XIMI_AUTO_POINTER_LAYER_TRIGGER_ENABLE
+// void matrix_scan_user(void) {
+//     if (auto_pointer_layer_timer != 0 && TIMER_DIFF_16(timer_read(), auto_pointer_layer_timer) >= XIMI_AUTO_POINTER_LAYER_TRIGGER_TIMEOUT_MS) {
+//         auto_pointer_layer_timer = 0;
+//         layer_off(LAYER_POINTER);
+// #        ifdef RGB_MATRIX_ENABLE
+//         rgb_matrix_mode_noeeprom(RGB_MATRIX_DEFAULT_MODE);
+// #        endif // RGB_MATRIX_ENABLE
+//     }
+// }
+// #    endif // XIMI_AUTO_POINTER_LAYER_TRIGGER_ENABLE
 
-#    ifdef XIMI_AUTO_SNIPING_ON_LAYER
-layer_state_t layer_state_set_user(layer_state_t state) {
-    ximi_set_pointer_sniping_enabled(layer_state_cmp(state, XIMI_AUTO_SNIPING_ON_LAYER));
-    return state;
-}
-#    endif // XIMI_AUTO_SNIPING_ON_LAYER
-#endif     // POINTING_DEVICE_ENABLE
+// #    ifdef XIMI_AUTO_SNIPING_ON_LAYER
+// layer_state_t layer_state_set_user(layer_state_t state) {
+//     ximi_set_pointer_sniping_enabled(layer_state_cmp(state, XIMI_AUTO_SNIPING_ON_LAYER));
+//     return state;
+// }
+// #    endif // XIMI_AUTO_SNIPING_ON_LAYER
+// #endif     // POINTING_DEVICE_ENABLE
 
-#ifdef RGB_MATRIX_ENABLE
-// Forward-declare this helper function since it is defined in
-// rgb_matrix.c.
-void rgb_matrix_update_pwm_buffers(void);
-#endif
+// #ifdef RGB_MATRIX_ENABLE
+// // Forward-declare this helper function since it is defined in
+// // rgb_matrix.c.
+// void rgb_matrix_update_pwm_buffers(void);
+// #endif
 
-void pointing_device_init_kb(void) {
-#ifdef PMW3360_CPI
-    pointing_device_set_cpi(PMW3360_CPI);
-#endif
-}
+// void pointing_device_init_kb(void) {
+//     pointing_device_set_cpi(PMW3360_CPI);
+// }
