@@ -116,8 +116,8 @@ static uint16_t auto_pointer_layer_timer = 0;
  * from the base layer to enable auto-repeat.
  */
 #define LAYOUT_LAYER_FUNCTION                                                                 \
-    KC_PSCR,   KC_F7,   KC_F8,   KC_F9,  KC_F12,  KC_LBRC,    KC_7,    KC_8,    KC_9, KC_RBRC,  \
-    KC_SCRL,   KC_F4,   KC_F5,   KC_F6,  KC_F11,  KC_SCLN,    KC_4,    KC_5,    KC_6,  KC_EQL,  \
+    KC_LBRC,   KC_F7,   KC_F8,   KC_F9,  KC_F12,  KC_LBRC,    KC_7,    KC_8,    KC_9, KC_BSPC,  \
+    KC_RBRC,   KC_F4,   KC_F5,   KC_F6,  KC_F11,  KC_SCLN,    KC_4,    KC_5,    KC_6,  KC_EQL,  \
     KC_PAUS,   KC_F1,   KC_F2,   KC_F3,  KC_F10,   KC_GRV,    KC_1,    KC_2,    KC_3, KC_BSLS,  \
                       XXXXXXX, XXXXXXX, _______, XXXXXXX, XXXXXXX
 
@@ -162,9 +162,9 @@ static uint16_t auto_pointer_layer_timer = 0;
  * `KC_DOT` is duplicated from the base layer.
  */
 #define LAYOUT_LAYER_NUMERAL                                                                  \
-     KC_PSCR,   KC_F7,   KC_F8,   KC_F9,  KC_F12,  KC_LBRC,    KC_7,    KC_8,    KC_9, KC_RBRC,  \
-    KC_SCRL,   KC_F4,   KC_F5,   KC_F6,  KC_F11,  KC_SCLN,    KC_4,    KC_5,    KC_6,  KC_EQL,  \
-    KC_PAUS,   KC_F1,   KC_F2,   KC_F3,  KC_F10,   KC_GRV,    KC_1,    KC_2,    KC_3, KC_BSLS,  \
+    KC_F1,   KC_F2,   KC_F3,   KC_F4,  KC_F5,  KC_COLN,    KC_7,    KC_8,    KC_9, KC_BSPC,  \
+    KC_F6,   KC_F7,   KC_F8,   KC_F9,  KC_F10,  KC_SCLN,    KC_4,    KC_5,    KC_6,  KC_EQL,  \
+    KC_F11,   KC_F12,   KC_F13,   KC_F14,  KC_F15,   KC_0,    KC_1,    KC_2,    KC_3, KC_SLSH,  \
                       SIGN, XXXXXXX, _______, XXXXXXX, MMATTEST
 
 /**

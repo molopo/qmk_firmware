@@ -66,6 +66,7 @@
 // Limits the frequency that the sensor is polled for motion.
 #define POINTING_DEVICE_TASK_THROTTLE_MS 1
 
+#define SPLIT_USB_DETECT
 // Invert X axis on mouse reports.
 
 #define POINTING_DEVICE_INVERT_Y
