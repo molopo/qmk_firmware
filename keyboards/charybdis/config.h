@@ -68,7 +68,7 @@
 
 // Invert X axis on mouse reports.
 
-//#define POINTING_DEVICE_INVERT_X
+#define POINTING_DEVICE_INVERT_Y
 
 #define PMW33XX_CS_PIN F7
 # define PMW3360_CPI 400
