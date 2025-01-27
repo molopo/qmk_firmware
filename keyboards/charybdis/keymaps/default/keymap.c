@@ -46,7 +46,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
     case MMATTEST:
         if (record->event.pressed) {
-           SEND_STRING(".mmattest")SS_TAP(X_ENT); // selects all and copies
+           SEND_STRING(".mmattest"SS_TAP(X_ENT)); // selects all and copies
         }
         break;
 
